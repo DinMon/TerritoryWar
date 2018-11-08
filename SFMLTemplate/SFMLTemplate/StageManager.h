@@ -8,6 +8,7 @@ class StageManager
 {
 public:
 	static StageManager* Instance(sf::RenderWindow*);
+	static StageManager* Instance();
 	StageManager(StageEnum, sf::RenderWindow*);
 	~StageManager();
 	bool GetIsQuit();

@@ -14,6 +14,15 @@ StageManager* StageManager::Instance(sf::RenderWindow* aWindow)
 	return fInstance;
 }
 
+StageManager * StageManager::Instance()
+{
+	if (fInstance)
+	{
+		return fInstance;
+	}
+	throw "No instance of StageManager";
+}
+
 StageManager::StageManager(StageEnum lState, sf::RenderWindow* aWindow)
 {
 	fWindow = aWindow;

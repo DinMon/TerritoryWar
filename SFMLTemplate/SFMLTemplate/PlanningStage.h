@@ -15,6 +15,7 @@ private:
 	static PlanningStage* fInstance;
 	void loadMedia();
 	void setSprite();
+	void NextStage();
 
 	sf::RenderWindow* fWindow;
 
