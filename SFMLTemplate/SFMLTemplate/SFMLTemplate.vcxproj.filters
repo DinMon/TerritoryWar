@@ -13,10 +13,66 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\StageManagement">
+      <UniqueIdentifier>{433e971b-ff8d-4a79-aa58-f6d17e1b1052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameManagement">
+      <UniqueIdentifier>{0ca86057-9c0a-4313-a10e-0839382c8f32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{06fa16d4-f36c-457e-9806-50786d982588}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entity">
+      <UniqueIdentifier>{3d06ab4b-59af-4769-abd0-941ebc71ee6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\StageManagement">
+      <UniqueIdentifier>{51b9de12-7b66-4698-bc86-9f1fb3c041d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameManagement">
+      <UniqueIdentifier>{2c1e5226-d356-4184-aebe-89ed0eaa0c00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entity">
+      <UniqueIdentifier>{e4fbb880-4edf-45e1-bacc-841caa14e4db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility">
+      <UniqueIdentifier>{795b125c-d17f-4798-b97f-ab6df68a136d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\StageManagement\Stages">
+      <UniqueIdentifier>{4580b0a0-9564-44b1-8f90-04f7f0949b1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\StageManagement\Stages">
+      <UniqueIdentifier>{de8cee39-ed96-473a-af33-bdc88bce07a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SFMLTemplate.cpp">
+    <ClCompile Include="StageManager.cpp">
+      <Filter>Source Files\StageManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayStage.cpp">
+      <Filter>Source Files\StageManagement\Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="PlanningStage.cpp">
+      <Filter>Source Files\StageManagement\Stages</Filter>
+    </ClCompile>
+    <ClCompile Include="TerritoryWar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="StageManager.h">
+      <Filter>Header Files\StageManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Header Files\StageManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="StageEnum.h">
+      <Filter>Header Files\StageManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayStage.h">
+      <Filter>Header Files\StageManagement\Stages</Filter>
+    </ClInclude>
+    <ClInclude Include="PlanningStage.h">
+      <Filter>Header Files\StageManagement\Stages</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

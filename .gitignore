@@ -1,0 +1,6 @@
+*.ipch
+*.tlog
+*.lastbuildstate
+*.idb
+SFMLTemplate/.vs/SFMLTemplate/v15/Browse.VC.db
+*.opendb

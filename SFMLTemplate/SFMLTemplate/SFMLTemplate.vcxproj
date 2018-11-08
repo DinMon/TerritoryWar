@@ -153,7 +153,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="SFMLTemplate.cpp" />
+    <ClCompile Include="GameplayStage.cpp" />
+    <ClCompile Include="PlanningStage.cpp" />
+    <ClCompile Include="TerritoryWar.cpp" />
+    <ClCompile Include="StageManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameplayStage.h" />
+    <ClInclude Include="PlanningStage.h" />
+    <ClInclude Include="StageEnum.h" />
+    <ClInclude Include="StageManager.h" />
+    <ClInclude Include="Stage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
