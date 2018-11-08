@@ -4,8 +4,9 @@
 #define PADDINGRIGHT 10
 #define PADDINGBOTTOM 120
 
-PlanningStage::PlanningStage()
+PlanningStage::PlanningStage(sf::RenderWindow* aWindow)
 {
+	fWindow = aWindow;
 	loadMedia();
 }
 
@@ -21,34 +22,39 @@ void PlanningStage::loadMedia()
 	}
 	fPlaySprite.setTexture(fPlayTexture);
 	fPlaySprite.setScale(sf::Vector2f(0.15, 0.15));
+	setSprite();
+}
+
+void PlanningStage::setSprite()
+{
+	fPlaySprite.setPosition(sf::Vector2f( fWindow->getSize().x - (fPlaySprite.getGlobalBounds().width + PADDINGRIGHT), fWindow->getSize().y - PADDINGBOTTOM));
 }
 
 PlanningStage* PlanningStage::fInstance = nullptr;
 
-PlanningStage* PlanningStage::Instance()
+PlanningStage* PlanningStage::Instance(sf::RenderWindow* aWindow)
 {
 	if (!fInstance)
 	{
-		fInstance = new PlanningStage();
+		fInstance = new PlanningStage(aWindow);
 	}
 	return fInstance;
 }
 
-void PlanningStage::Draw(sf::RenderWindow* aWindow)
+void PlanningStage::Draw()
 {
-	fPlaySprite.setPosition(sf::Vector2f( aWindow->getSize().x - (fPlaySprite.getGlobalBounds().width + PADDINGRIGHT), aWindow->getSize().y - PADDINGBOTTOM));
-	aWindow->draw(fPlaySprite);
+	fWindow->draw(fPlaySprite);
 }
 
-void PlanningStage::GetInput(sf::RenderWindow* aWindow)
+void PlanningStage::GetInput()
 {
 	        // Process events
         sf::Event event;
-        while (aWindow->pollEvent(event))
+        while (fWindow->pollEvent(event))
         {
             // Close window: exit
             if (event.type == sf::Event::Closed)
-                aWindow->close();
+                fWindow->close();
         }
 }
 

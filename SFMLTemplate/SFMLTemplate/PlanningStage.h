@@ -5,16 +5,19 @@ class PlanningStage :
 	public Stage
 {
 public:
-	static PlanningStage* Instance();
-	void Draw(sf::RenderWindow*);
-	void GetInput(sf::RenderWindow*);
+	static PlanningStage* Instance(sf::RenderWindow*);
+	void Draw();
+	void GetInput();
 	void Update();
-	PlanningStage();
+	PlanningStage(sf::RenderWindow*);
 	~PlanningStage();
 private:
 	static PlanningStage* fInstance;
 	void loadMedia();
-	void setSprite(sf::RenderWindow*);
+	void setSprite();
+
+	sf::RenderWindow* fWindow;
+
 	//Textures
 	sf::Texture fPlayTexture;
 

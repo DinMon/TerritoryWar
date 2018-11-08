@@ -7,17 +7,18 @@ class Stage;
 class StageManager
 {
 public:
-	static StageManager* Instance();
-	StageManager(StageEnum);
+	static StageManager* Instance(sf::RenderWindow*);
+	StageManager(StageEnum, sf::RenderWindow*);
 	~StageManager();
 	bool GetIsQuit();
-	void HandleInput(sf::RenderWindow*);
+	void HandleInput();
 	void HandleUpdate();
-	void HandleDraw(sf::RenderWindow*);
+	void HandleDraw();
 	void SetState(StageEnum);
 
 private:
 	static Stage* fStage;
+	sf::RenderWindow* fWindow;
 	bool isQuit;
 	static StageManager* fInstance;
 };

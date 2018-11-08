@@ -5,17 +5,18 @@
 StageManager* StageManager::fInstance = 0;
 Stage* StageManager::fStage = 0;
 
-StageManager* StageManager::Instance()
+StageManager* StageManager::Instance(sf::RenderWindow* aWindow)
 {
 	if (!fInstance)
 	{
-		fInstance = new StageManager(StageEnum::Planning);
+		fInstance = new StageManager(StageEnum::Planning, aWindow);
 	}
 	return fInstance;
 }
 
-StageManager::StageManager(StageEnum lState)
+StageManager::StageManager(StageEnum lState, sf::RenderWindow* aWindow)
 {
+	fWindow = aWindow;
 	isQuit = false;
 	SetState(lState);
 }
@@ -25,10 +26,10 @@ void StageManager::SetState(StageEnum lState)
 	switch (lState)
 	{
 	case Planning:
-		fStage = PlanningStage::Instance();
+		fStage = PlanningStage::Instance(fWindow);
 		break;
 	case Gameplay:
-		fStage = GameplayStage::Instance();
+		fStage = GameplayStage::Instance(fWindow);
 		break;
 	case QuitState:
 		isQuit = true;
@@ -43,9 +44,9 @@ bool StageManager::GetIsQuit()
 	return isQuit;
 }
 
-void StageManager::HandleInput(sf::RenderWindow* aWindow)
+void StageManager::HandleInput()
 {
-	fStage->GetInput(aWindow);
+	fStage->GetInput();
 }
 
 void StageManager::HandleUpdate()
@@ -53,9 +54,9 @@ void StageManager::HandleUpdate()
 	fStage->Update();
 }
 
-void StageManager::HandleDraw(sf::RenderWindow* aWindow)
+void StageManager::HandleDraw()
 {
-	fStage->Draw(aWindow);
+	fStage->Draw();
 }
 
 StageManager::~StageManager()

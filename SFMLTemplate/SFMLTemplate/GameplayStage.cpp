@@ -1,7 +1,8 @@
 #include "GameplayStage.h"
 
-GameplayStage::GameplayStage()
+GameplayStage::GameplayStage(sf::RenderWindow* aWindow)
 {
+	fWindow = aWindow;
 	loadMedia();
 }
 
@@ -16,20 +17,20 @@ void GameplayStage::loadMedia()
 
 GameplayStage* GameplayStage::fInstance = nullptr;
 
-GameplayStage* GameplayStage::Instance()
+GameplayStage* GameplayStage::Instance(sf::RenderWindow* aWindow)
 {
 	if (!fInstance)
 	{
-		fInstance = new GameplayStage();
+		fInstance = new GameplayStage(aWindow);
 	}
 	return fInstance;
 }
 
-void GameplayStage::Draw(sf::RenderWindow* aWindow)
+void GameplayStage::Draw()
 {
 }
 
-void GameplayStage::GetInput(sf::RenderWindow* aWindow)
+void GameplayStage::GetInput()
 {
 }
 
