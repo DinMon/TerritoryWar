@@ -1,5 +1,8 @@
 #pragma once
 #include "Stage.h"
+
+class Player;
+
 class GameplayStage :
 	public Stage
 {
@@ -18,15 +21,9 @@ private:
 	//Input Variable
 	int fHorizontalInput;
 	int fVerticalInput;
-	
-	//Textures
-	sf::Texture fPlayerTexture;
 
-	//Sprites
-	sf::Sprite fPlayerSprite;
+	Player* fPlayer;
 
 	void loadMedia();
-	void Move();
-	void RetainInWindow();
 };
 

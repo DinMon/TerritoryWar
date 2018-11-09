@@ -57,6 +57,9 @@
     <ClCompile Include="TerritoryWar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StageManager.h">
@@ -73,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="PlanningStage.h">
       <Filter>Header Files\StageManagement\Stages</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

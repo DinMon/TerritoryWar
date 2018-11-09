@@ -155,12 +155,14 @@
   <ItemGroup>
     <ClCompile Include="GameplayStage.cpp" />
     <ClCompile Include="PlanningStage.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="TerritoryWar.cpp" />
     <ClCompile Include="StageManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameplayStage.h" />
     <ClInclude Include="PlanningStage.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="StageEnum.h" />
     <ClInclude Include="StageManager.h" />
     <ClInclude Include="Stage.h" />
