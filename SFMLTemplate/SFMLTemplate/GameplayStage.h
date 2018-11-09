@@ -21,6 +21,8 @@ private:
 	//Input Variable
 	int fHorizontalInput;
 	int fVerticalInput;
+	int fMouseX;
+	int fMouseY;
 
 	Player* fPlayer;
 
