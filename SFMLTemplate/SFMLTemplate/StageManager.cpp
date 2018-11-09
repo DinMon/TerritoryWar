@@ -9,7 +9,7 @@ StageManager* StageManager::Instance(sf::RenderWindow* aWindow)
 {
 	if (!fInstance)
 	{
-		fInstance = new StageManager(StageEnum::Planning, aWindow);
+		fInstance = new StageManager(StageEnum::Gameplay, aWindow);
 	}
 	return fInstance;
 }
