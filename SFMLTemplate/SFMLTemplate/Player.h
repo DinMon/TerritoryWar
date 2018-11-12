@@ -1,23 +1,31 @@
 #pragma once
-#include <SFML\Graphics.hpp>
+#include "Entity.h"
 
-class Player
+class Weapon;
+
+class Player: Entity
 {
 public:
-	Player();
+	Player(sf::RenderWindow*);
 	~Player();
-	void Move(int, int, sf::RenderWindow*);
+	void Draw();
+	void Move(int, int);
 	void LookAt(int, int);
 	sf::Sprite getSprite();
+	void SetupComponents();
+	void UpdateBullets();
+	Weapon* GetWeapon();
+	void Shoot(int, int);
 private:
+	void UpdateAimDirection(int, int);
 	void loadMedia();
-	void RetainInWindow(sf::RenderWindow*);
-	
+	void RetainInWindow();
 	bool fToRotate;
-	//Textures
-	sf::Texture fPlayerTexture;
+	sf::RenderWindow* fWindow;
+	Weapon* fCurrentWeapon;
 
-	//Sprites
-	sf::Sprite fPlayerSprite;
+	//Aiming
+	sf::Vector2f fAimDirNorm;
+
 };
 

@@ -1,9 +1,10 @@
 #include "GameplayStage.h"
+#include "ShootingComponent.h"
 #include "Player.h"
 
 GameplayStage::GameplayStage(sf::RenderWindow* aWindow)
 {
-	fPlayer = new Player();
+	fPlayer = new Player(aWindow);
 	fHorizontalInput = 0;
 	fVerticalInput = 0;
 	fWindow = aWindow;
@@ -32,7 +33,8 @@ GameplayStage* GameplayStage::Instance(sf::RenderWindow* aWindow)
 
 void GameplayStage::Draw()
 {
-	fWindow->draw(fPlayer->getSprite());
+	fPlayer->Draw();
+	((Entity*)fPlayer)->GetComponentContainer()->GetComponent<ShootingComponent>()->DrawBullets(fWindow);
 }
 
 void GameplayStage::GetInput()
@@ -53,11 +55,13 @@ void GameplayStage::GetInput()
 				fMouseX = event.mouseMove.x;
 				fMouseY = event.mouseMove.y;
 			}
+			break;
+		case sf::Event::MouseButtonPressed:
 			if (event.mouseButton.button == sf::Mouse::Left)
 			{
+				fPlayer->Shoot(fMouseX, fMouseY);
 				break;
 			}
-			break;
 		case sf::Event::KeyPressed:
 			if (event.key.code == sf::Keyboard::W)
 			{
@@ -109,8 +113,9 @@ void GameplayStage::GetInput()
 
 void GameplayStage::Update()
 {
-	fPlayer->Move(fHorizontalInput, fVerticalInput, fWindow);
+	fPlayer->Move(fHorizontalInput, fVerticalInput);
 	fPlayer->LookAt(fMouseX, fMouseY);
+	((Entity*)fPlayer)->GetComponentContainer()->GetComponent<ShootingComponent>()->UpdateBulletPos();
 }
 
 void GameplayStage::setSprite()

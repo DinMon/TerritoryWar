@@ -43,6 +43,24 @@
     <Filter Include="Header Files\StageManagement\Stages">
       <UniqueIdentifier>{de8cee39-ed96-473a-af33-bdc88bce07a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component">
+      <UniqueIdentifier>{b440d462-7d90-4b7a-961e-48d24d670635}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component">
+      <UniqueIdentifier>{eb939f16-9b45-4cb3-abab-12c59941f0ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Component\ConcreateComponent">
+      <UniqueIdentifier>{64e428d3-7665-47bf-a3f8-bf280ffac01a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Component\ConcreateComponent">
+      <UniqueIdentifier>{9e7b066f-a67e-4948-a07d-20781cfea2b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entity\Item">
+      <UniqueIdentifier>{2252350f-0a94-4087-9eb4-7b661e735c94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entity\Item">
+      <UniqueIdentifier>{4cd1ec42-aa43-480f-b75b-6388971c050f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StageManager.cpp">
@@ -59,6 +77,33 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentHolder.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthComponent.cpp">
+      <Filter>Source Files\Component\ConcreateComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="IDGenerator.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Source Files\Entity\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="CanContain.cpp">
+      <Filter>Source Files\Component\ConcreateComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageComponent.cpp">
+      <Filter>Source Files\Component\ConcreateComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="ShootingComponent.cpp">
+      <Filter>Source Files\Component\ConcreateComponent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +124,36 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentHolder.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthComponent.h">
+      <Filter>Header Files\Component\ConcreateComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="IDGenerator.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Header Files\Entity\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="CanContain.h">
+      <Filter>Header Files\Component\ConcreateComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageComponent.h">
+      <Filter>Header Files\Component\ConcreateComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="ShootingComponent.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

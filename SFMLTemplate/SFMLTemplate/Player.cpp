@@ -1,109 +1,159 @@
 #include "Player.h"
+#include "HealthComponent.h"
+#include "CanContain.h"
+#include "ShootingComponent.h"
+#include "Weapon.h"
 #include <math.h>
 
 #define VELOCITY 0.1
 #define PI 3.14159265
 
-Player::Player()
+Player::Player(sf::RenderWindow* aWindow): Entity("Player")
 {
-	fPlayerSprite.setOrigin(sf::Vector2f(fPlayerSprite.getPosition().x + 
-		(fPlayerSprite.getGlobalBounds().width / 2), fPlayerSprite.getPosition().y + (fPlayerSprite.getGlobalBounds().height / 2)));
+	fWindow = aWindow;
+	fEntitySprite.setOrigin(sf::Vector2f(fEntitySprite.getPosition().x + 
+		(fEntitySprite.getGlobalBounds().width / 2), fEntitySprite.getPosition().y + (fEntitySprite.getGlobalBounds().height / 2)));
 	fToRotate = true;
-	fPlayerSprite.setPosition(100, 100);
+	fEntitySprite.setPosition(100, 100);
 	loadMedia();
+	SetupComponents();
 }
-
 
 Player::~Player()
 {
 }
 
-void Player::Move(int aHorizontal, int aVertical, sf::RenderWindow* aWindow)
+void Player::Draw()
 {
-	RetainInWindow(aWindow);
-	fPlayerSprite.setPosition(sf::Vector2f(fPlayerSprite.getPosition().x + aHorizontal * VELOCITY, fPlayerSprite.getPosition().y + aVertical * VELOCITY));
+	fWindow->draw(fEntitySprite);
+	fWindow->draw(*(fComponentContainer->GetComponent<HealthComponent>()->GetSprite()));
+}
+
+void Player::Move(int aHorizontal, int aVertical)
+{
+	RetainInWindow();
+	fEntitySprite.setPosition(sf::Vector2f(fEntitySprite.getPosition().x + aHorizontal * VELOCITY, fEntitySprite.getPosition().y + aVertical * VELOCITY));
+	//Setting health bar sprite
+	fComponentContainer->GetComponent<HealthComponent>()->GetSprite()->setPosition(fEntitySprite.getPosition().x , fEntitySprite.getPosition().y - 2);
+	fComponentContainer->GetComponent<HealthComponent>()->GetSprite()->setRotation(fEntitySprite.getRotation() + 90 );
 }
 
 void Player::LookAt(int aMouseX, int aMouseY)
 {
-	double angle = atan2(aMouseY - fPlayerSprite.getPosition().y, aMouseX - fPlayerSprite.getPosition().x) * 180 / PI;
-	fPlayerSprite.setRotation(angle);
+	double angle = atan2(aMouseY - fEntitySprite.getPosition().y, aMouseX - fEntitySprite.getPosition().x) * 180 / PI;
+	fEntitySprite.setRotation(angle);
+}
+
+void Player::UpdateAimDirection(int aX, int aY)
+{
+	sf::Vector2f fPlayerCenter = sf::Vector2f(fEntitySprite.getPosition().x, fEntitySprite.getPosition().y);
+	sf::Vector2f lMousePos = sf::Vector2f(aX, aY);
+	sf::Vector2f lAimDir = (sf::Vector2f)(lMousePos - fPlayerCenter);
+	fAimDirNorm = lAimDir / sqrt(pow(lAimDir.x, 2) + pow(lAimDir.y, 2));
 }
 
 sf::Sprite Player::getSprite()
 {
-	return fPlayerSprite;
+	return fEntitySprite;
 }
+
+void Player::SetupComponents()
+{
+	//Health Component
+	fComponentContainer->AddComponent<HealthComponent>(new HealthComponent(100));
+	fComponentContainer->GetComponent<HealthComponent>()->GetSprite()->setPosition(fEntitySprite.getPosition().x, fEntitySprite.getPosition().y - 2);
+	fComponentContainer->GetComponent<HealthComponent>()->GetSprite()->setRotation(fEntitySprite.getRotation());
+
+	//CanContain Component
+	fComponentContainer->AddComponent<CanContain>(new CanContain());
+	fComponentContainer->GetComponent<CanContain>()->AddItem(new Weapon("HandGun", 20, 5, 0.5f));
+	fCurrentWeapon = (Weapon*)fComponentContainer->GetComponent<CanContain>()->FetchCurrentItem();
+
+	//Shooting Component
+	fComponentContainer->AddComponent<ShootingComponent>(new ShootingComponent(this));
+}
+
+Weapon* Player::GetWeapon()
+{
+	return fCurrentWeapon;
+}
+
+void Player::Shoot(int aX, int aY)
+{
+	UpdateAimDirection(aX, aY);
+	fComponentContainer->GetComponent<ShootingComponent>()->FireWeapon(fAimDirNorm);
+}
+
 
 void Player::loadMedia()
 {
-	if (!fPlayerTexture.loadFromFile("data/images/PlayerHandGun.png"))
+	if (!fEntityTexture.loadFromFile("data/images/PlayerHandGun.png"))
 	{
 		throw "Cannot load texture";
 	}
-	fPlayerSprite.setTexture(fPlayerTexture);
-	fPlayerSprite.setScale(sf::Vector2f(0.2, 0.2));
+	fEntitySprite.setTexture(fEntityTexture);
+	fEntitySprite.setScale(sf::Vector2f(0.2, 0.2));
 }
 
-void Player::RetainInWindow(sf::RenderWindow* aWindow)
+void Player::RetainInWindow()
 {
 	fToRotate = false;
-	if (fPlayerSprite.getPosition().x > aWindow->getSize().x - fPlayerSprite.getGlobalBounds().width)
+	if (fEntitySprite.getPosition().x > fWindow->getSize().x - fEntitySprite.getGlobalBounds().width)
 	{
-		if (fPlayerSprite.getRotation() > 45 && fPlayerSprite.getRotation() > 225)
+		if (fEntitySprite.getRotation() > 45 && fEntitySprite.getRotation() > 225)
 		{
-			fPlayerSprite.setPosition(fPlayerSprite.getPosition().x - VELOCITY, fPlayerSprite.getPosition().y);
+			fEntitySprite.setPosition(fEntitySprite.getPosition().x - VELOCITY, fEntitySprite.getPosition().y);
 			return;
 		}
 	}
-	if (fPlayerSprite.getPosition().x > aWindow->getSize().x)
+	if (fEntitySprite.getPosition().x > fWindow->getSize().x)
 	{
-		if (fPlayerSprite.getRotation() > 45 && fPlayerSprite.getRotation() < 225)
+		if (fEntitySprite.getRotation() > 45 && fEntitySprite.getRotation() < 225)
 		{
-			fPlayerSprite.setPosition(fPlayerSprite.getPosition().x - 10, fPlayerSprite.getPosition().y);
+			fEntitySprite.setPosition(fEntitySprite.getPosition().x - 10, fEntitySprite.getPosition().y);
 			return;
 		}
 	}
-	if (fPlayerSprite.getPosition().y > aWindow->getSize().y - fPlayerSprite.getGlobalBounds().height)
+	if (fEntitySprite.getPosition().y > fWindow->getSize().y - fEntitySprite.getGlobalBounds().height)
 	{
-		if (fPlayerSprite.getRotation() > 0 && fPlayerSprite.getRotation() < 180)
+		if (fEntitySprite.getRotation() > 0 && fEntitySprite.getRotation() < 180)
 		{
-			fPlayerSprite.setPosition(fPlayerSprite.getPosition().x, fPlayerSprite.getPosition().y - 10);
+			fEntitySprite.setPosition(fEntitySprite.getPosition().x, fEntitySprite.getPosition().y - 10);
 			return;
 		}
 	}
-	if (fPlayerSprite.getPosition().y > aWindow->getSize().y)
+	if (fEntitySprite.getPosition().y > fWindow->getSize().y)
 	{
-		if (fPlayerSprite.getRotation() > 180 && fPlayerSprite.getRotation() < 360)
+		if (fEntitySprite.getRotation() > 180 && fEntitySprite.getRotation() < 360)
 		{
-			fPlayerSprite.setPosition(fPlayerSprite.getPosition().x, fPlayerSprite.getPosition().y - VELOCITY);
+			fEntitySprite.setPosition(fEntitySprite.getPosition().x, fEntitySprite.getPosition().y - VELOCITY);
 			return;
 		}
 	}
-	if (fPlayerSprite.getPosition().x < fPlayerSprite.getGlobalBounds().width)
+	if (fEntitySprite.getPosition().x < fEntitySprite.getGlobalBounds().width)
 	{
-		if (fPlayerSprite.getRotation() > 45 && fPlayerSprite.getRotation() < 225)
+		if (fEntitySprite.getRotation() > 45 && fEntitySprite.getRotation() < 225)
 		{
-			fPlayerSprite.setPosition(fPlayerSprite.getGlobalBounds().width, fPlayerSprite.getPosition().y);
+			fEntitySprite.setPosition(fEntitySprite.getGlobalBounds().width, fEntitySprite.getPosition().y);
 			return;
 		}
 	}
-	if (fPlayerSprite.getPosition().x < 0)
+	if (fEntitySprite.getPosition().x < 0)
 	{
-		fPlayerSprite.setPosition(0, fPlayerSprite.getPosition().y);
+		fEntitySprite.setPosition(0, fEntitySprite.getPosition().y);
 		return;
 	}
-	if (fPlayerSprite.getPosition().y < fPlayerSprite.getGlobalBounds().height)
+	if (fEntitySprite.getPosition().y < fEntitySprite.getGlobalBounds().height)
 	{
-		if (fPlayerSprite.getRotation() > 180 && fPlayerSprite.getRotation() < 360)
+		if (fEntitySprite.getRotation() > 180 && fEntitySprite.getRotation() < 360)
 		{
-			fPlayerSprite.setPosition(fPlayerSprite.getPosition().x, 0);
+			fEntitySprite.setPosition(fEntitySprite.getPosition().x, 0);
 			return;
 		}
 	}
-	if (fPlayerSprite.getPosition().y < 0)
+	if (fEntitySprite.getPosition().y < 0)
 	{
-		fPlayerSprite.setPosition(fPlayerSprite.getPosition().x, 0);
+		fEntitySprite.setPosition(fEntitySprite.getPosition().x, 0);
 		return;
 	}
 	fToRotate = true;
