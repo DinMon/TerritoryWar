@@ -20,8 +20,5 @@ private:
 	sf::Vector2f fDirectionAngle;
 	float fSpeed;
 	sf::Vector2f fCurrentVelocity;
-	void DestroyMyself();
-	void OnCollision();
-	void OnOutsideScreen();
 };
 

@@ -38,18 +38,3 @@ void Bullet::loadMedia()
 	fEntitySprite.setScale(0.03, 0.03);
 }
 
-void Bullet::DestroyMyself()
-{
-	//Bullet out of screen or Collided
-	OnCollision();
-	OnOutsideScreen();
-}
-
-void Bullet::OnCollision()
-{
-}
-
-void Bullet::OnOutsideScreen()
-{
-}
-

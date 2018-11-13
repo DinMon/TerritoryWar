@@ -11,14 +11,20 @@ class ShootingComponent :
 	public Component
 {
 public:
-	ShootingComponent(Entity*);
+	ShootingComponent(Entity*, sf::RenderWindow*);
 	~ShootingComponent();
 	void FireWeapon(sf::Vector2f aAimDir);
 	void Fire();
 	void Reload();
+	void UpdateReloadTime();
 	void UpdateBulletPos();
-	void DrawBullets(sf::RenderWindow*);
+	void DrawBullets();
 private:
+	sf::Clock fClock;
+	bool fStartClock;
+	sf::RenderWindow* fWindow;
+	void OnCollision(int);
+	void OnOutsideScreen(int);
 	Entity* fEntity;
 	std::vector<Bullet*> fBullets;
 };

@@ -157,6 +157,7 @@
     <ClCompile Include="CanContain.cpp" />
     <ClCompile Include="ComponentHolder.cpp" />
     <ClCompile Include="DamageComponent.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameplayStage.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentHolder.h" />
     <ClInclude Include="DamageComponent.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameplayStage.h" />
     <ClInclude Include="HealthComponent.h" />

@@ -11,3 +11,8 @@ DamageComponent::DamageComponent(int aDamage)
 DamageComponent::~DamageComponent()
 {
 }
+
+int DamageComponent::GetDamage()
+{
+	return fDamagePoint;
+}

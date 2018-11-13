@@ -1,6 +1,8 @@
 #include "GameplayStage.h"
 #include "ShootingComponent.h"
+#include "HealthComponent.h"
 #include "Player.h"
+#include "Enemy.h"
 
 GameplayStage::GameplayStage(sf::RenderWindow* aWindow)
 {
@@ -8,12 +10,37 @@ GameplayStage::GameplayStage(sf::RenderWindow* aWindow)
 	fHorizontalInput = 0;
 	fVerticalInput = 0;
 	fWindow = aWindow;
+	PopulateEnemies();
 	loadMedia();
 }
 
 
 GameplayStage::~GameplayStage()
 {
+}
+
+void GameplayStage::PopulateEnemies()
+{
+	fEnemies.push_back(new Enemy(fWindow));
+}
+
+void GameplayStage::DrawEnemies()
+{
+	for (auto &enemy : fEnemies)
+	{
+		enemy->Draw();
+	}
+}
+
+void GameplayStage::RemoveDiedEnemies()
+{
+	for (int i = 0; i < fEnemies.size(); i++)
+	{
+		if (fEnemies[i]->GetComponentContainer()->GetComponent<HealthComponent>()->GetDied())
+		{
+			fEnemies.erase(fEnemies.begin() + i);
+		}
+	}
 }
 
 void GameplayStage::loadMedia()
@@ -33,8 +60,8 @@ GameplayStage* GameplayStage::Instance(sf::RenderWindow* aWindow)
 
 void GameplayStage::Draw()
 {
+	DrawEnemies();
 	fPlayer->Draw();
-	((Entity*)fPlayer)->GetComponentContainer()->GetComponent<ShootingComponent>()->DrawBullets(fWindow);
 }
 
 void GameplayStage::GetInput()
@@ -60,6 +87,11 @@ void GameplayStage::GetInput()
 			if (event.mouseButton.button == sf::Mouse::Left)
 			{
 				fPlayer->Shoot(fMouseX, fMouseY);
+				break;
+			}
+			if (event.mouseButton.button == sf::Mouse::Right)
+			{
+				fPlayer->Reload();
 				break;
 			}
 		case sf::Event::KeyPressed:
@@ -115,9 +147,15 @@ void GameplayStage::Update()
 {
 	fPlayer->Move(fHorizontalInput, fVerticalInput);
 	fPlayer->LookAt(fMouseX, fMouseY);
-	((Entity*)fPlayer)->GetComponentContainer()->GetComponent<ShootingComponent>()->UpdateBulletPos();
+	fPlayer->Update();
+	RemoveDiedEnemies();
 }
 
 void GameplayStage::setSprite()
 {
+}
+
+std::vector<Enemy*> GameplayStage::GetEnemies()
+{
+	return fEnemies;
 }

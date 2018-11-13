@@ -2,6 +2,7 @@
 
 HealthComponent::HealthComponent(int aMaxHealth): Component()
 {
+	fHasDied = false;
 	fMaxHealthPoint = aMaxHealth;
 	fHealthPoint = fMaxHealthPoint;
 	loadMedia();
@@ -25,6 +26,11 @@ void HealthComponent::Hurt(int aValue)
 	UpdateHealthSprite();
 }
 
+bool HealthComponent::GetDied()
+{
+	return fHasDied;
+}
+
 sf::Sprite* HealthComponent::GetSprite()
 {
 	return &fHealthSprite;
@@ -41,7 +47,16 @@ void HealthComponent::loadMedia()
 
 void HealthComponent::UpdateHealthSprite()
 {
-	fHealthSprite.setScale((fHealthPoint/fMaxHealthPoint)*0.1, 0.1);
+	if (fHealthPoint <= 0)
+	{
+		fHasDied = true;
+		fHealthSprite.setScale(0, 0);
+	}
+	else
+	{
+		double lVal = ((float)fHealthPoint / (float)fMaxHealthPoint)*0.1;
+		fHealthSprite.setScale(lVal, 0.1);
+	}
 }
 
 

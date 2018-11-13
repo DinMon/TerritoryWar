@@ -27,6 +27,13 @@ void Player::Draw()
 {
 	fWindow->draw(fEntitySprite);
 	fWindow->draw(*(fComponentContainer->GetComponent<HealthComponent>()->GetSprite()));
+	fComponentContainer->GetComponent<ShootingComponent>()->DrawBullets();
+}
+
+void Player::Update()
+{
+	fComponentContainer->GetComponent<ShootingComponent>()->UpdateReloadTime();
+	fComponentContainer->GetComponent<ShootingComponent>()->UpdateBulletPos();
 }
 
 void Player::Move(int aHorizontal, int aVertical)
@@ -66,11 +73,11 @@ void Player::SetupComponents()
 
 	//CanContain Component
 	fComponentContainer->AddComponent<CanContain>(new CanContain());
-	fComponentContainer->GetComponent<CanContain>()->AddItem(new Weapon("HandGun", 20, 5, 0.5f));
+	fComponentContainer->GetComponent<CanContain>()->AddItem(new Weapon("HandGun", 20, 5, 0.8));
 	fCurrentWeapon = (Weapon*)fComponentContainer->GetComponent<CanContain>()->FetchCurrentItem();
 
 	//Shooting Component
-	fComponentContainer->AddComponent<ShootingComponent>(new ShootingComponent(this));
+	fComponentContainer->AddComponent<ShootingComponent>(new ShootingComponent(this, fWindow));
 }
 
 Weapon* Player::GetWeapon()
@@ -82,6 +89,11 @@ void Player::Shoot(int aX, int aY)
 {
 	UpdateAimDirection(aX, aY);
 	fComponentContainer->GetComponent<ShootingComponent>()->FireWeapon(fAimDirNorm);
+}
+
+void Player::Reload()
+{
+	fComponentContainer->GetComponent<ShootingComponent>()->Reload();
 }
 
 

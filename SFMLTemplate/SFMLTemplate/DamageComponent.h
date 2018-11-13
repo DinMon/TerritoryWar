@@ -6,6 +6,7 @@ class DamageComponent :
 public:
 	DamageComponent(int);
 	~DamageComponent();
+	int GetDamage();
 private:
 	int fDamagePoint;
 };

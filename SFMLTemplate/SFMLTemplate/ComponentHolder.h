@@ -23,6 +23,7 @@ T* ComponentHolder::GetComponent()
 			return (T*)fComponents[i];
 		}
 	}
+	throw "Cannot find Component";
 	return nullptr;
 }
 

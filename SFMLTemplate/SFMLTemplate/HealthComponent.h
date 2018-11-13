@@ -10,8 +10,10 @@ public:
 	~HealthComponent();
 	void Heal(int);
 	void Hurt(int);
+	bool GetDied();
 	sf::Sprite* GetSprite();
 private:
+	bool fHasDied;
 	void loadMedia();
 	void UpdateHealthSprite();
 	int fHealthPoint;
