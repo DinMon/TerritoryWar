@@ -206,5 +206,11 @@
     <ClInclude Include="AStar.hpp">
       <Filter>Header Files\AStar</Filter>
     </ClInclude>
+    <ClInclude Include="ThreadPool.h">
+      <Filter>Header Files\AStar</Filter>
+    </ClInclude>
+    <ClInclude Include="SafeQueue.h">
+      <Filter>Header Files\AStar</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

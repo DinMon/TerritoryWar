@@ -1,10 +1,13 @@
 #pragma once
 #include "Stage.h"
+#include "ThreadPool.h"
 #include <vector>
 
 class Player;
 class Enemy;
 class Map;
+
+void simpleFunction(std::vector<Enemy*>, int);
 
 class GameplayStage :
 	public Stage
@@ -20,12 +23,20 @@ public:
 	~GameplayStage();
 private:
 	static GameplayStage* fInstance;
+	void Reset(sf::RenderWindow*);
 	sf::RenderWindow* fWindow;
 
+	sf::Clock fClock; // starts the clock
 	void PopulateEnemies();
 	void DrawEnemies();
 
 	void RemoveDiedEnemies();
+	void RemovePlayer();
+
+	bool fIsGameOver;
+
+	sf::Texture fGameOverTexture;
+	sf::Sprite fGameOverSprite;
 
 	//Input Variable
 	int fHorizontalInput;
@@ -35,8 +46,9 @@ private:
 
 	Player* fPlayer;
 	Map* fMap;
+	ThreadPool fPool;
 	std::vector<Enemy*> fEnemies;
-
+	std::future<bool> fFuture;
 	void loadMedia();
 };
 

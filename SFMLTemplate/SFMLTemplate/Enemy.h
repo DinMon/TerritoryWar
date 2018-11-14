@@ -10,6 +10,7 @@ class Enemy :
 {
 public:
 	Enemy(sf::RenderWindow*, Player*);
+	void SetupPosition();
 	~Enemy();
 	void Draw();
 	void Move();
@@ -24,6 +25,7 @@ private:
 	bool fIsOnTheWay;
 	void SetupComponents();
 	sf::RenderWindow* fWindow;
+	sf::ConvexShape fPolygon;
 	Player* fPlayer;
 	AStar::Generator fGenerator;
 	float fSpeed;

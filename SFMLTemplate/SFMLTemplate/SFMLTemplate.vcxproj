@@ -189,11 +189,13 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="PlanningStage.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SafeQueue.h" />
     <ClInclude Include="ShootingComponent.h" />
     <ClInclude Include="StageEnum.h" />
     <ClInclude Include="StageManager.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StringUtil.h" />
+    <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileEnum.h" />
     <ClInclude Include="TileModel.h" />

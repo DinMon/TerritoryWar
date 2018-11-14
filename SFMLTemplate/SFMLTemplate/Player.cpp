@@ -3,6 +3,8 @@
 #include "CanContain.h"
 #include "ShootingComponent.h"
 #include "Weapon.h"
+#include "GameplayStage.h"
+#include "Enemy.h"
 #include "Map.h"
 #include <math.h>
 
@@ -14,6 +16,8 @@ bool flag1 = true;
 Player::Player(sf::RenderWindow* aWindow): Entity("Player")
 {
 	fWindow = aWindow;
+	fStartClock = true;
+	fTimeBeforeHurt = 1;
 	fEntitySprite.setOrigin(sf::Vector2f(fEntitySprite.getPosition().x + 
 		(fEntitySprite.getGlobalBounds().width / 2), fEntitySprite.getPosition().y + (fEntitySprite.getGlobalBounds().height / 2)));
 	fToRotate = true;
@@ -37,6 +41,11 @@ void Player::Update()
 {
 	fComponentContainer->GetComponent<ShootingComponent>()->UpdateReloadTime();
 	fComponentContainer->GetComponent<ShootingComponent>()->UpdateBulletPos();
+	if (fClock.getElapsedTime().asSeconds() > fTimeBeforeHurt && !fStartClock)
+	{
+		fStartClock = true;
+	}
+	OnEnemyCollision();
 }
 
 void Player::Move(int aHorizontal, int aVertical)
@@ -109,6 +118,11 @@ void Player::Reload()
 
 void Player::loadMedia()
 {
+	if (!fHurtSoundBuffer.loadFromFile("data/sounds/hurt.wav"))
+	{
+		throw "Cannot load texture";
+	}
+	fHurtSound.setBuffer(fHurtSoundBuffer);
 	if (!fEntityTexture.loadFromFile("data/images/PlayerHandGun.png"))
 	{
 		throw "Cannot load texture";
@@ -120,6 +134,24 @@ void Player::loadMedia()
 void Player::RetainFromObstacle()
 {
 
+}
+
+void Player::OnEnemyCollision()
+{
+	for (auto &enemy : GameplayStage::Instance(fWindow)->GetEnemies())
+	{
+		if (fStartClock)
+		{
+			if (fEntitySprite.getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds()))
+			{
+				fComponentContainer->GetComponent<HealthComponent>()->Hurt(10);
+				fHurtSound.play();
+			}
+			fStartClock = false;
+			fClock.restart();
+		}
+	}
+	
 }
 
 void Player::RetainInWindow()

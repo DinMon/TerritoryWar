@@ -22,6 +22,6 @@ private:
 	TileModel* fGroundTile;
 	TileModel* fWallTile;
 
-	Tile map[10][10];
+	Tile map[20][20];
 };
 

@@ -101,6 +101,7 @@ void ShootingComponent::OnCollision(int index)
 				{
 					lEnemies[i]->OnBulletCollision(fBullets[index]);
 					fBullets.erase(fBullets.begin() + index);
+					break;
 					//Passing Bullet (Later on can take consideration of distance travalled to determine hitPoint)
 				}
 			}

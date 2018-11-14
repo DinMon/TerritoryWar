@@ -60,9 +60,9 @@ void Map::LoadMap(std::string aFileName)
 
 void Map::DrawMap()
 {
-	for (int row = 0; row < 10; row++)
+	for (int row = 0; row < 20; row++)
 	{
-		for (int column = 0; column < 10; column++)
+		for (int column = 0; column < 20; column++)
 		{
 			map[row][column].GetSprite()->setPosition(column * RECTDIMENSION, row * RECTDIMENSION);
 
