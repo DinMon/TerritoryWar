@@ -61,6 +61,18 @@
     <Filter Include="Header Files\Entity\Item">
       <UniqueIdentifier>{4cd1ec42-aa43-480f-b75b-6388971c050f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Tileset">
+      <UniqueIdentifier>{0e0dd9c8-63b1-4423-a9f9-cb09e0d08fc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tileset">
+      <UniqueIdentifier>{6b1ea44b-f135-48b9-b2a0-12ab7c6db262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AStar">
+      <UniqueIdentifier>{d5fd8b7f-4618-4d7d-a6d5-c13cc023bc42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AStar">
+      <UniqueIdentifier>{21f4e292-3c41-4ee3-9fbb-8a51a1563a9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="StageManager.cpp">
@@ -106,7 +118,22 @@
       <Filter>Source Files\Component\ConcreateComponent</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files\Tileset</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Source Files\Tileset</Filter>
+    </ClCompile>
+    <ClCompile Include="TileModel.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StringUtil.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="AStar.cpp">
+      <Filter>Source Files\AStar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,7 +186,25 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files\Tileset</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Header Files\Tileset</Filter>
+    </ClInclude>
+    <ClInclude Include="TileModel.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TileEnum.h">
+      <Filter>Header Files\Tileset</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtil.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="AStar.hpp">
+      <Filter>Header Files\AStar</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

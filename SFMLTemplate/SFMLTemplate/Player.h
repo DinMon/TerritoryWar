@@ -13,6 +13,7 @@ public:
 	void Move(int, int);
 	void LookAt(int, int);
 	sf::Sprite getSprite();
+	sf::Vector2i GetCoordinates();
 	void UpdateBullets();
 	Weapon* GetWeapon();
 	void Shoot(int, int);
@@ -21,6 +22,7 @@ private:
 	void SetupComponents();
 	void UpdateAimDirection(int, int);
 	void loadMedia();
+	void RetainFromObstacle();
 	void RetainInWindow();
 	bool fToRotate;
 	sf::RenderWindow* fWindow;

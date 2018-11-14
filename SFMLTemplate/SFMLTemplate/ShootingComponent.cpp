@@ -91,13 +91,19 @@ void ShootingComponent::DrawBullets()
 void ShootingComponent::OnCollision(int index)
 {
 	std::vector<Enemy*> lEnemies = GameplayStage::Instance(fWindow)->GetEnemies();
-	for (int i = 0; i < lEnemies.size(); i++)
+	if (lEnemies.size() > 0)
 	{
-		if (fBullets[index]->getSprite()->getGlobalBounds().intersects(lEnemies[i]->getSprite().getGlobalBounds()))
+		if (fBullets.size() > 0)
 		{
-			lEnemies[i]->OnBulletCollision(fBullets[index]);
-			fBullets.erase(fBullets.begin() + index);
-			//Passing Bullet (Later on can take consideration of distance travalled to determine hitPoint)
+			for (int i = 0; i < lEnemies.size(); i++)
+			{
+				if (fBullets[index]->getSprite()->getGlobalBounds().intersects(lEnemies[i]->getSprite().getGlobalBounds()))
+				{
+					lEnemies[i]->OnBulletCollision(fBullets[index]);
+					fBullets.erase(fBullets.begin() + index);
+					//Passing Bullet (Later on can take consideration of distance travalled to determine hitPoint)
+				}
+			}
 		}
 	}
 }

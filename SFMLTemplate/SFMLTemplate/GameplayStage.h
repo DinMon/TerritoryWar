@@ -4,6 +4,7 @@
 
 class Player;
 class Enemy;
+class Map;
 
 class GameplayStage :
 	public Stage
@@ -33,6 +34,7 @@ private:
 	int fMouseY;
 
 	Player* fPlayer;
+	Map* fMap;
 	std::vector<Enemy*> fEnemies;
 
 	void loadMedia();

@@ -3,10 +3,13 @@
 #include "CanContain.h"
 #include "ShootingComponent.h"
 #include "Weapon.h"
+#include "Map.h"
 #include <math.h>
 
 #define VELOCITY 0.1
 #define PI 3.14159265
+
+bool flag1 = true;
 
 Player::Player(sf::RenderWindow* aWindow): Entity("Player")
 {
@@ -64,6 +67,13 @@ sf::Sprite Player::getSprite()
 	return fEntitySprite;
 }
 
+sf::Vector2i Player::GetCoordinates()
+{
+	sf::Vector2i lGridIndex = Map::GetMapCoordinate(fEntitySprite.getPosition());
+	//std::cout << lGridIndex.x << " " << lGridIndex.y << "\n";
+	return lGridIndex;
+}
+
 void Player::SetupComponents()
 {
 	//Health Component
@@ -105,6 +115,11 @@ void Player::loadMedia()
 	}
 	fEntitySprite.setTexture(fEntityTexture);
 	fEntitySprite.setScale(sf::Vector2f(0.2, 0.2));
+}
+
+void Player::RetainFromObstacle()
+{
+
 }
 
 void Player::RetainInWindow()

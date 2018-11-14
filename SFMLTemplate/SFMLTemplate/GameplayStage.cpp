@@ -2,11 +2,16 @@
 #include "ShootingComponent.h"
 #include "HealthComponent.h"
 #include "Player.h"
+#include "Map.h"
 #include "Enemy.h"
+#include <iostream>
+
+bool flag = false;
 
 GameplayStage::GameplayStage(sf::RenderWindow* aWindow)
 {
 	fPlayer = new Player(aWindow);
+	fMap = new Map(aWindow);
 	fHorizontalInput = 0;
 	fVerticalInput = 0;
 	fWindow = aWindow;
@@ -21,7 +26,7 @@ GameplayStage::~GameplayStage()
 
 void GameplayStage::PopulateEnemies()
 {
-	fEnemies.push_back(new Enemy(fWindow));
+	fEnemies.push_back(new Enemy(fWindow, fPlayer));
 }
 
 void GameplayStage::DrawEnemies()
@@ -60,6 +65,7 @@ GameplayStage* GameplayStage::Instance(sf::RenderWindow* aWindow)
 
 void GameplayStage::Draw()
 {
+	fMap->DrawMap();
 	DrawEnemies();
 	fPlayer->Draw();
 }
@@ -115,6 +121,11 @@ void GameplayStage::GetInput()
 				fHorizontalInput = 1;
 				break;
 			}
+			if (event.key.code == sf::Keyboard::G)
+			{
+				flag = true;
+				break;
+			}
 		case sf::Event::KeyReleased:
 			if (event.key.code == sf::Keyboard::W)
 			{
@@ -145,9 +156,16 @@ void GameplayStage::GetInput()
 
 void GameplayStage::Update()
 {
+	//sf::Vector2i lGridIndex = Map::GetMapCoordinate(fPlayer->getSprite().getPosition());
+	//std::cout << lGridIndex.x << " " << lGridIndex.y << "\n";
+
 	fPlayer->Move(fHorizontalInput, fVerticalInput);
 	fPlayer->LookAt(fMouseX, fMouseY);
 	fPlayer->Update();
+	if (flag)
+	{
+		fEnemies[0]->Move();
+	}
 	RemoveDiedEnemies();
 }
 
